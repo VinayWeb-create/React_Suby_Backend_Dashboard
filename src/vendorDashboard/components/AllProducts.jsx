@@ -22,26 +22,21 @@ const AllProducts = () => {
         console.log('this is useEffect')
     },[])
 
-    const deleteProductById = async(productId) => {
-        const isConfirmed = window.confirm("Are you sure you want to delete?");
-        if (!isConfirmed) return;
-    
-        try {
-            const response = await fetch(`${API_URL}/product/${productId}`, {
-                method: 'DELETE'
-            });
-            if (response.ok) {
-                setProducts(products.filter(product => product._id !== productId));
-                alert("Product deleted successfully");
-            } else {
-                alert("Failed to delete product");
-            }
-        } catch (error) {
-            console.error('Failed to delete product', error);
-            alert('Failed to delete product');
-        }
-    };
-    
+    const deleteProductById = async(productId)=>{
+                try {
+                        const response = await fetch(`${API_URL}/product/${productId}`,{
+                            method: 'DELETE'
+                        })
+                    if(response.ok){
+                        setProducts(products.filter(product =>product._id !== productId));
+                        confirm("are you sure, you want to delete?")
+                        alert("Product deleted Successfully")
+                    }
+                } catch (error) {
+                    console.error('Failed to delete product');
+                    alert('Failed to delete product')
+                }
+    }
 
     
   return (
@@ -69,7 +64,7 @@ const AllProducts = () => {
                                         {item.image && (
                                             <img src={`${API_URL}/uploads/${item.image}`} 
                                             alt={item.productName}
-                                            style={{ width: '100px', height:'100px'  }}
+                                            style={{ width: '50px', height:'50px'  }}
                                             />
                                         )}
                                     </td>
